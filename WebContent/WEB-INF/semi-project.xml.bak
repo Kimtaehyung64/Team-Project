@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.3.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+	<context:component-scan base-package="mvc" />
+	<mvc:annotation-driven />
+	<mvc:resources location="/resources/" mapping="/resources/**" />
+	<mvc:resources location="file:///C:\\FinalProject1\\CTeam\\pics" mapping="/img/*" />
+	<mvc:resources location="file:///C:\\FinalProject1\\CTeam\\js" mapping="/img/*" />
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
+	<bean id="JsonView" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView"/>
+	<!-- 작업예약 경매 상태값 업데이트 -->
+	<task:annotation-driven executor="excutor" scheduler="scheduler"/>
+	<task:scheduler id="scheduler" pool-size="5"/>
+	<task:executor id="excutor" keep-alive="5" pool-size="1-2" queue-capacity="1" rejection-policy="ABORT"/>
+	
+	
+	<bean id="loginInterceptor" class="mvc.login.interceptor.LoginInterceptor">	</bean>
+		<mvc:interceptors>
+			<mvc:interceptor>
+				<mvc:mapping path="loginPost"/>
+				<ref bean="loginInterceptor"></ref>
+			</mvc:interceptor>
+		</mvc:interceptors>
+		
+		 <!-- 메일 보내기 (SEND) -->
+   <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+      <property name="host" value="smtp.gmail.com" />
+      <property name="port" value="587" />
+      <property name="username" value="coaudwjd@gmail.com" />
+      <property name="password" value="audwjd2718" />
+      
+    
+
+      <!-- email 요청시는 SMTP -->
+      <property name="javaMailProperties">
+         <props>
+            <prop key="mail.transport.protocol">smtp</prop>
+            <prop key="mail.smtp.auth">true</prop>
+            <prop key="mail.smtp.starttls.enable">true</prop>
+            <prop key="mail.debug">true</prop>
+            <prop key ="mail.smtp.ssl.trust">smtp.gmail.com</prop>
+         </props>
+      </property>
+   </bean>
+   
+   	<bean id="email" class="mvc.email.Email">
+	</bean>
+	<bean id="emailSender" class="mvc.email.EmailSender">
+	</bean>
+</beans>

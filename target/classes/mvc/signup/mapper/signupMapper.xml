@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="signup">
+<insert id="addmember1" parameterType="signVO"> 
+insert into signup values (signup_seq.nextVal,#{aid},#{apwd},SYSDATE,SYSDATE,#{agubun},0) </insert>
+
+<insert id="addmember2" parameterType="signVO"> 
+insert into member_detail values (member_detail_seq.nextVal,signup_seq.currVal,
+#{dname},to_date(#{dbirth},'yyyy-mm-dd'),#{dgender},#{dtel},#{dcname},#{daddress}) </insert>
+
+<insert id="addmember3">
+insert into payment values (payment_seq.nextVal,signup_seq.currVal,null,null,null,null,'미구독',0) </insert>
+<insert id="addmember4"> 
+insert into payment_detail values (payment_detail_seq.nextVal,payment_seq.currVal,null,null,null) </insert>
+
+<select id="idChk" resultType="int" parameterType="String"> select count(*) from signup where aid = #{aid} </select>
+
+<select id="dnameChk" resultType="int" parameterType="String">
+ select count(*)
+ from member_detail d, signup s 
+ where d.anum = s.anum and d.dname = #{dname} and s.aid = #{aid}
+ </select>
+
+<select id="findpw" resultType="String" parameterType="Map">
+SELECT distinct apwd 
+from signup s , member_detail d 
+WHERE s.aid=#{aid} and d.dname = #{dname}  	
+</select>
+
+<insert id="addtoken" parameterType="signVO">
+insert into LOGINTOKEN values(LOGINTOKEN_seq.nextVal,null,'P','Y',sysdate,#{aid})
+</insert>
+
+<select id="gudokCheck" parameterType="signVO" resultType="String">
+	select pgubun from signup s, payment p where s.anum = p.anum and s.aid = #{aid}
+</select>
+
+</mapper>
+ 
+ 

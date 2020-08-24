@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="search">
+	<select id="list2" resultType="cpvo" parameterType="pvo">
+		select * from (
+		select rownum r_num, a.* from
+		(
+		select p.pdnum,
+		p.rlettpcd, ps.tradtpcd, ps.prc, p.atclfetrdesc, p.taglist, p.rltrnm,
+		pl.plocation from product p, product_sale_info ps, product_location pl
+		where p.pdnum = ps.pdnum and p.pdnum = pl.pdnum and p.rlettpcd ='D02'
+		<if test="searchType != null">
+			<choose>
+				<when test="searchType == 1">
+					and p.atclfetrdesc like '%'|| #{searchValue} ||'%'
+				</when>
+				<when test="searchType == 2">
+					and pl.plocation like '%'|| #{searchValue} ||'%'
+				</when>
+			</choose>
+		</if>
+		order by p.pdnum desc
+		) a
+		) where r_num between #{start} and #{end}
+	</select>
+	<select id="totalCount" resultType="int" parameterType="pvo">
+		select count(*) cnt from product p, product_sale_info ps,
+		product_location pl where p.pdnum = ps.pdnum and p.pdnum = pl.pdnum
+		and p.rlettpcd ='D02'
+		<if test="searchType != null">
+			<choose>
+				<when test="searchType == 1">
+					and p.atclfetrdesc like '%'|| #{searchValue} ||'%'
+				</when>
+				<when test="searchType == 2">
+					and pl.plocation like '%'|| #{searchValue} ||'%'
+				</when>
+			</choose>
+		</if>
+	</select>
+	<select id="list3" resultType="realvo" parameterType="pvo">
+		select * from (
+		select rownum r_num, a.* from
+		(
+		select * from realdealprice
+		<if test="searchType != null">
+			<where>
+				<choose>
+					<when test="searchType == 1">
+						and sigungu =  #{searchValue} 
+					</when>
+					<when test="searchType == 2">
+						and dong = #{searchValue}
+					</when>
+				</choose>
+			</where>
+		</if>
+		) a
+		) where r_num between #{start} and #{end}
+	</select>
+	<select id="totalCount2" resultType="int" parameterType="pvo">
+		select count(*) cnt from realdealprice
+		<if test="searchType != null">
+			<where>
+				<choose>
+					<when test="searchType == 1">
+						and sigungu = #{searchValue}
+					</when>
+					<when test="searchType == 2">
+						and dong = #{searchValue}
+					</when>
+				</choose>
+			</where>
+		</if>
+	</select>
+	<select id="commentlist" resultType="cpvo" parameterType="pvo">
+		select * from (
+		select rownum r_num, a.* from
+		(
+		select p.pdnum
+		pdnum,p.atclfetrdesc atclfetrdesc,img.img img,pl.plocation plocation
+		from product p, product_info pi, product_sale_info ps,product_img
+		img,product_location pl
+		where p.pdnum= pi.pdnum and pi.pdnum = ps.pdnum and pi.pidnum=img.pidnum
+		and ps.pdnum=pl.pdnum
+		<if test="searchType != null">
+			<choose>
+				<when test="searchType == 1">
+					and p.rlettpcd like '%'|| #{searchValue} ||'%'
+				</when>
+			</choose>
+
+		</if>
+		<if test="searchType2 != null">
+
+			<choose>
+				<when test="searchType2 == 1">
+					and ps.tradtpcd like '%'|| #{searchValue2} ||'%'
+				</when>
+			</choose>
+
+		</if>
+		order by prc asc) a
+		) where r_num between 1 and 3
+	</select>
+	<select id="listall" parameterType="commupvo"
+		resultType="outervo">
+		select * from (
+		select rownum rnum, a.* from (
+		select distinct title, link, datetime, source, searchlocation from
+		newsdata
+		<where>
+		<trim>
+			<if test="searchType=='title'">
+				AND title like '%'||#{searchValue}||'%'
+			</if>
+			<if test="searchType=='contents'">
+				AND content like '%'||#{searchValue}||'%'
+			</if>
+			<if test="searchType=='gu'">
+				AND searchlocation like '%'||#{searchValue}||'%'
+			</if>
+		</trim>
+		</where>
+		<choose>
+			<when test="sortindex==1">
+				order by datetime desc
+			</when>
+			<when test="sortindex==2">
+				order by datetime asc
+			</when>
+		</choose>
+		
+		) a ) where rnum between #{start} and #{end}
+	</select>
+	<select id="countall" parameterType="commupvo" resultType="int">
+		select count(*) cnt from newsdata 
+		<where>
+		<trim>
+			<if test="searchValue != null and searchValue != '' ">
+				<if test="searchType=='title'">
+					AND title like '%'||#{searchValue}||'%'
+				</if>
+				<if test="searchType=='contents'">
+					AND content like '%'||#{searchValue}||'%'
+				</if>
+				<if test="searchType=='gu'">
+					AND searchlocation like '%'||#{searchValue}||'%'
+				</if>
+			</if>		
+		</trim>
+		</where>
+	</select>
+	<select id="keyword" resultType="keyvo">
+		select distinct * from mostfrequency order by num
+	</select> 
+	<select id="catelocation" resultType="commercial">
+		select * from index_commercial where commercialcode = #{cate}
+	</select>
+	<select id="dongList" parameterType="String" resultType="String">
+		select distinct dong from realdealprice where sigungu = #{largeName}
+	</select> 
+</mapper>
+
+
+

@@ -1,0 +1,78 @@
+body {
+	background-color: #F2F2F2;
+}
+
+h1 {
+	text-align: center;
+	font-size: 70px;
+	margin-top: 100px;
+	margin-bottom: -20px;
+}
+
+h4 {
+	text-align: center;
+}
+
+.container {
+	position: relative;
+	left: 80px;
+}
+
+.row {
+	margin-left: 0px;
+	margin-right: 0px;
+}
+ 
+div, label {
+	margin-top: 20px;
+}
+
+.col-sm-2 {
+	font-size: 20px;
+}
+
+.form-horizontal .control-label {
+	text-align: center;
+}
+
+.form-control {
+	height: 40px;
+}
+
+.col-xs-1 {
+	padding: 5px;
+	width: 9%;
+	MARGIN-TOP: 13PX;
+}
+
+#month {
+	padding-left: 0px;
+	padding-right: 20px;
+}
+
+#day {
+	padding-left: 0px;
+	padding-right: 20px;
+	right: 15px;
+}
+
+#year {
+	padding-left: 16px;
+}
+
+#checkrobot {
+	font-size: 20px;
+}
+
+#checkrobot {
+	right: 50px;
+}
+
+#signup {
+	right: 20px;
+}
+
+#cancel {
+	background-color: #6E6E6E;
+	color: white;
+}

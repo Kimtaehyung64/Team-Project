@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="payment">
+
+	<update id="paymentup" parameterType="paymentvo">
+		update payment set 
+		psdate =#{psdate},
+		 pedate =#{pedate},
+		  ppay = #{ppay},
+		  monthnum=#{monthnum},
+		pway=#{pway},
+		 pgubun=#{pgubun} where pnum=#{pnum}
+
+		
+	</update>
+	<update id="payment_detailup" parameterType="payment_DetailVO">
+	update payment_detail 
+	set kinds =#{kinds},
+		mentnum =#{mentnum},  
+		inment =#{inment} 
+		where pnum=#{pnum}
+	</update>
+	<select id="paymentid" parameterType="int" resultType="String">
+		select dname from member_detail where anum =#{anum}
+	</select>
+
+</mapper>

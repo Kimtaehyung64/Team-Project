@@ -1,0 +1,266 @@
+.nono{
+width: auto; height:130px;
+background: red;
+font-size: xx-large;
+}
+
+h1 {
+	background: gray;
+	margin-top: 0px;
+	text-align: center;
+	width: 700px;
+}
+ 
+.imgSz {
+	width: 795px;
+	height: 400px;
+}
+
+.selc {
+	width: 155px;
+	height: 160px;
+}
+
+.th_img_box {
+	width: 790px;
+	height: 400px;
+	background: silver;
+	
+}
+
+.th_img_boxlist {
+	width: auto;
+	height: auto;
+	float: left;
+	border: 2px solid ;
+}
+
+.th_img_boxlistMain {
+	width: 795px;
+	
+}
+
+.th_main_detail {
+	border: 1px solid blue;
+	width: 800px; height: 570px;
+	position: absolute; left: 810px; top: 254px;
+	
+	
+}
+.th_detail_img{
+width: 799px;
+height: auto;
+}
+
+.th_detail_sub{
+position: absolute; bottom: 0px;
+width: 799px; height: 160px; background: olive;
+}
+.th_detail_sub_button{
+width: 100px; height: 60px; font-size: large;
+position: absolute; bottom: 25px; right: 25px;
+}
+
+.th_Chosen{
+	position: fixed; right: 10px; bottom: 150px;
+	background: orange; width: 280px; height: 500px;
+}
+.th_ChsenList{
+	height: 98px; width: auto; border: 1px solid;
+}
+.th_ChsenList_img{
+	height: 100%; width: 100px; border: 1px solid;
+	float: left;
+}
+.th_ChsenList_SimpleData{
+	border: 1px solid; width: 176px; height: 50%;
+	margin-left: 101px;
+}
+.th_ChsenList_Price{
+	border: 1px solid; width: 176px; height: 48%;
+	margin-left: 101px; 
+}
+
+.th_DataBox{
+position: absolute; left: 8px; background: aqua;
+width: 1600px; height: 400px; top: 830px;
+}
+
+.footer_test{
+	height: 150px;  
+	background: navy;
+	margin-top: 576px;
+}
+.th_Data_Listitem{
+ width: auto; height: 100px; border: 1px solid;
+ 
+}
+.th_List_item{
+width: auto; height: 100%;
+float: left; border: 1px solid; margin-right: 10px;
+}
+.th_Data_DetailPage{
+	 width: auto; border: 1px solid;
+	height: 298px; background: gray;
+}
+.a{
+ width: 300px; height: 300px;
+ background:  olive;
+ margin-top: 60px;
+ 
+}
+
+.a_a{
+	width: 100%; height: 100px;
+	background: yellow;
+	position: relative;
+	
+	top: 50px;
+}
+
+.b{
+width: 300px; height: 300px;
+ background:  blue;
+}
+
+#rightSide{
+
+position: absolute;
+
+top: 547px;
+
+left: 50%;
+margin: 0 0 0 510px;
+	}
+#rightSide #right_zzim {
+
+position: fixed;
+top: 126px;
+left: 50%;
+margin-left: 600px;
+border:1px solid #B0B5BD;
+width:320px;
+height:700px;
+
+}
+
+
+
+#rightSide #right_zzim  div {text-align:center;}
+
+#rightSide #right_zzim  div.recTit{line-height:1.5em;padding:5px;color:white;background-color:#505A69;}
+
+#right_zzim #recentCnt {color:yellow;}
+
+#rightSide #right_zzim ul {min-height:495px;}
+
+#rightSide #right_zzim  li{text-align:center;padding:5px;position:relative;} 
+
+#rightSide #right_zzim ul li img {border:1px solid #ccc}
+
+#right_zzim .detail {
+
+display: none;
+
+position: absolute;
+
+top: 3px;
+
+right: 20px;
+
+xheight: 40px;
+
+xpadding: 15px 11px 0;
+
+xbackground: #404a59;
+
+color: #fff;
+
+xtext-align: left;
+
+white-space: nowrap;
+
+.regist th, tr {
+	font-size: 15pt;
+}
+
+}
+
+
+
+#right_zzim li:hover .detail {display:block}
+
+#right_zzim li .btn_delete {
+
+position: absolute;
+
+top: 3px;
+
+right: -1px;
+
+width: 11px;
+
+height: 11px;
+
+background: url(/img/sp.png) no-repeat -193px -111px;
+
+text-indent: -9000px;
+
+}
+
+#right_zzim  #currentPage {color:#505A69;font-weight:bold}
+
+#right_zzim  #totalPageCount {color:#CBC8D2;font-weight:bold}
+
+.noData {color:#ccc;text-align:center;margin-top:223px;}
+
+
+
+}
+
+#paging {display:;position:relative;line-height:1em;}
+
+#paging .btn_prev {
+
+position: absolute;
+
+top: 526px;
+
+left: 4px;
+
+width: 13px;
+
+height: 11px;
+
+background: url(/images/ico_arrow.png)  no-repeat ;
+
+text-indent: -9000px;
+
+border:1px solid #CCC;
+
+display:inline-block;
+
+}
+
+
+
+#paging .btn_next {
+
+position: absolute;
+
+top: 526px;
+
+right: 4px;
+
+width: 13px;
+
+height: 11px;
+
+text-indent: -9000px;
+
+border:1px solid #CCC;
+
+display:inline-block;
+
+}
+

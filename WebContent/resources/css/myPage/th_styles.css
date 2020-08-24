@@ -1,0 +1,582 @@
+@charset "UTF-8";
+
+.th_b {
+	border-bottom: 1px solid black;
+}
+
+.th_b>p {
+	color: black;
+	text-align: center;
+	font-size: x-large;
+}
+
+.testestest {
+	width: 100%;
+	height: 500px;
+}
+ 
+.mypagesection{
+	height: 850px;
+} 
+ 
+#p_list {
+	
+}
+
+#p_list  p {
+	float: left;
+	font-size: large;
+	padding-top: 30px;
+	padding-bottom: 30px;
+	padding-left: 50px;
+	padding-right: 50px;
+	border-bottom: 1px solid black;
+}
+
+#p_list a {
+	text-decoration: none
+}
+
+#p_list a:hover {
+	text-decoration: none;
+	color: black;
+}
+
+.th_a {
+	color: black;
+	border-color: #3498DB;
+}
+
+table.type11 {
+	width: 100%;
+	border-collapse: separate;
+	border-spacing: 1px;
+	text-align: center;
+	line-height: 1.5;
+	margin: 20px 10px;
+}
+
+table.type11 th {
+	width: auto;
+	padding: 10px;
+	font-weight: bold;
+	vertical-align: top;
+	color: #fff;
+	background: #ce4869;
+}
+
+table.type11 td {
+	width: auto;
+	padding: 10px;
+	vertical-align: top;
+	border-bottom: 1px solid #ccc;
+	background: white;
+}
+
+table.type12 {
+	width: 100%;
+	border-collapse: separate;
+	border-spacing: 1px;
+	text-align: center;
+	line-height: 1.5;
+	margin: 20px 10px;
+}
+
+table.type12 th {
+	width: auto;
+	padding: 10px;
+	font-weight: bold;
+	vertical-align: top;
+	color: #fff;
+	background: #ce4869;
+}
+
+table.type12 td {
+	width: auto;
+	height: auto;
+	padding: 10px;
+	vertical-align: top;
+	border-bottom: 1px solid #ccc;
+	background: white;
+}
+
+.th-btn {
+	display: inline-block;
+	font-weight: 400;
+	color: #fff;
+	text-align: center;
+	vertical-align: middle;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	background-color: transparent;
+	border-bottom: 1px solid transparent;
+	padding: 0.375rem 0.75rem;
+	font-size: 0.9375rem;
+	line-height: 1.5;
+	border-radius: 0.25rem;
+	-webkit-transition: color 0.15s ease-in-out, background-color 0.15s
+		ease-in-out, border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s
+		ease-in-out;
+	transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+		border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+	transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+		border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+	transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+		border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out,
+		-webkit-box-shadow 0.15s ease-in-out;
+}
+
+.th-btn-outline-info {
+	color: #3498DB;
+	border-color: #3498DB;
+}
+
+.th-btn-outline-info:hover {
+	color: #fff;
+	background-color: #3498DB;
+	border-color: #3498DB;
+}
+
+.th-btn-outline-info:focus, .th-btn-outline-info.focus {
+	-webkit-box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.5);
+	box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.5);
+}
+
+.th-btn-outline-info.disabled, .th-btn-outline-info:disabled {
+	color: #3498DB;
+	background-color: transparent;
+}
+
+.th-btn-outline-info:not (:disabled ):not (.disabled ):active,
+	.th-btn-outline-info:not (:disabled ):not (.disabled ).active, .show>.th-btn-outline-info.dropdown-toggle
+	{
+	color: #fff;
+	background-color: #3498DB;
+	border-color: #3498DB;
+}
+
+.th-btn-outline-info:not (:disabled ):not (.disabled ):active:focus,
+	.th-btn-outline-info:not (:disabled ):not (.disabled ).active:focus,
+	.show>.th-btn-outline-info.dropdown-toggle:focus {
+	-webkit-box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.5);
+	box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.5);
+}
+
+.imgSz {
+	width: 800px;
+	height: 400px;
+}
+
+.th_mypage_maintext {
+	color: black;
+	text-align: center;
+	margin-top: 50px;
+}
+
+.th_ul {
+	margin-top: 50px;
+}
+
+.th_li {
+	width: 33%;
+}
+
+.th_li_sub {
+	width: 50%;
+	border: 1px solid #e6e6e6;
+	background-color: #FFFFFF;
+}
+
+/* .th_atwi:focus {
+	color: black;
+} */
+
+.selc {
+	width: 155px;
+	height: 160px;
+}
+
+.subtopma {
+	margin: 10px;
+}
+
+.topma {
+	margin-top: 10px;
+}
+
+.th_nav {
+	margin-top: 300px;
+	height: auto;
+}
+
+.th_body {
+	
+}
+
+.th_img_box {
+	width: 800px;
+	height: 400px;
+}
+
+.th_space {
+	display: inline-block;
+	margin: 5px;
+}
+
+.th_page_space {
+	width: auto;
+	height: 450px;
+    padding-top: 50px;
+}
+
+.th_img_boxlist {
+	width: auto;
+	height: auto;
+	border: 1px solid;
+}
+
+.th_img_boxlistMain {
+	width: 795px;
+}
+
+.th_main_detail {
+	border: 1px solid blue;
+	width: 800px;
+	height: 570px;
+}
+
+.th_detail_img {
+	width: 799px;
+	height: auto;
+}
+
+.th_detail_sub {
+	width: 799px;
+	height: 160px;
+	background: olive;
+}
+
+.th_detail_sub_button {
+	width: 100px;
+	height: 60px;
+	font-size: large;
+}
+
+.th_table_st {
+	position: fixed;
+	right: 10px;
+	bottom: 150px;
+}
+
+.th_Chosen {
+	width: 280px;
+	height: 500px;
+}
+
+.th_ChsenList {
+	height: 98px;
+	width: auto;
+	border: 1px solid;
+}
+
+.th_ChsenList_img {
+	height: 100%;
+	width: 100px;
+	border: 1px solid;
+	float: left;
+}
+
+.th_ChsenList_SimpleData {
+	border: 1px solid;
+	width: 176px;
+	height: 50%;
+	margin-left: 101px;
+}
+
+.th_ChsenList_Price {
+	border: 1px solid;
+	width: 176px;
+	height: 48%;
+	margin-left: 101px;
+}
+
+.th_DataBox {
+	background: aqua;
+	width: 50%;
+	height: 400px;
+}
+
+.th_Data_Listitem {
+	width: auto;
+	height: 100px;
+	border: 1px solid;
+}
+
+.th_List_item {
+	width: auto;
+	height: 100%;
+	float: left;
+	border: 1px solid;
+	margin-right: 10px;
+}
+
+.th_Data_DetailPage {
+	width: auto;
+	border: 1px solid;
+	height: 298px;
+	background: gray;
+}
+
+.th_contact-section {
+	padding-top: 5rem;
+}
+
+.th_contact-section .card {
+	border: 0;
+	border-bottom: 0.25rem solid #64a19d;
+}
+
+.th_contact-section .card h4 {
+	font-size: 0.8rem;
+	font-family: "Varela Round", -apple-system, BlinkMacSystemFont,
+		"Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif,
+		"Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+		"Noto Color Emoji";
+	text-transform: uppercase;
+	letter-spacing: 0.15rem;
+}
+
+.th_contact-section .card hr {
+	border-color: #64a19d;
+	border-width: 0.25rem;
+	width: 3rem;
+}
+
+.th_contact-section .social {
+	margin-top: 5rem;
+}
+
+.th_contact-section .social a {
+	text-align: center;
+	height: 3rem;
+	width: 3rem;
+	background: rgba(255, 255, 255, 0.1);
+	border-radius: 100%;
+	line-height: 3rem;
+	color: rgba(255, 255, 255, 0.3);
+}
+
+.th_contact-section .social a:hover {
+	color: rgba(255, 255, 255, 0.5);
+}
+
+.th_contact-section .social a:active {
+	color: #fff;
+}
+
+.th_property_img {
+	float: left;
+	width: 554px;
+	height: 368.75px;
+}
+
+.th_property_subimg {
+	width: 277px;
+	float: left;
+	height: 184.38px;
+}
+
+.property_color {
+	color: black;
+}
+
+.property_border_st {
+	border-radius: 0.25rem;
+	border: 1px solid black;
+}
+
+.property_card_back {
+	background-color: white;
+}
+
+.th_il:hover {
+	
+}
+
+.tn_border {
+	border: 1px solid transparent;
+	border-top-left-radius: 0.25rem;
+	border-top-right-radius: 0.25rem;
+	display: block;
+	padding: 0.5rem 2rem;
+}
+
+.th_infor_select {
+	width: 66.22px;
+	height: 36.49px;
+}
+
+.th_infor_year {
+	width: 191.77px;
+	height: 36.49px;
+}
+
+.th_infor_card {
+	width: 45%;
+	margin-left: 30px;
+	margin-right: 15px;
+	margin-bottom: 25px;
+}
+.th_infor_card_sub{
+	width: 100%;
+	height: 10%;
+}
+
+.th_nav-link:hover {
+	color: #FD7400;
+}
+
+/* .th_nav-link:focus {
+	border: 2px solid #FD7400;
+	color: #000000;
+} */
+
+.th_nav-link {
+	display: block;
+	padding: 0.5rem 1rem;
+}
+
+.customers {
+	font-family: 'Noto Sans KR',sans-serif;
+	border-collapse: collapse;
+	width: 100%;
+	border: 1px solid #ddd;
+}
+
+.customers th {
+	border: 1px solid #ddd;
+	padding-left: 8px;
+	padding-right: 8px;
+	padding-top: 12px;
+	padding-bottom: 12px;
+	text-align: center;
+	background-color: #FFFFFF;
+	color: #000000;
+}
+
+.customers td {
+	padding: 8px;
+}
+
+/* #customers #management {
+	padding: 4px;
+} */
+
+.customers tr:nth-child(even) {
+	border-top: 1px solid #E6E6E6;
+	border-bottom: 1px solid #E6E6E6;
+}
+
+/* #customers tr:hover {
+	background-color: #ddd;
+} */
+
+table.type02 {
+	border-collapse: separate;
+	border-spacing: 0;
+	text-align: left;
+	line-height: 1.5;
+	border-top: 1px solid #ccc;
+	border-left: 1px solid #ccc;
+}
+
+table.type02 th {
+	width: 150px;
+	font-size: 20px;
+	font-weight: inherit;
+	vertical-align: middle;
+    text-align: center;
+    border-right: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
+	border-top: 1px solid #fff;
+	background: #F9F9F9;
+	color: #000000;
+}
+
+table.type02 td {
+	width: 350px;
+	vertical-align: middle;
+	border-right: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
+}
+
+/* CSS 통합을 위한 고유 CSS 설계 영역 시작 
+   button1 : 검색 버튼
+   button2 : 글쓰기 버튼
+   button3 : 확인 버튼
+   button4 : 취소 버튼
+*/
+
+.button1{
+	height: 40px;
+	background-color: #FFFFFF;
+    border: 1px solid #D8D8D8;
+    color: #000000;
+    font-family: 'Noto Sans KR',sans-serif;
+    line-height: 3px;
+    font-size: 15px;
+    padding: 5px 20px 5px 20px;
+}
+.button1:hover{
+	border: 1px solid #F24607;
+	background-color: #FFFFFF;
+	color: #000000;
+}
+.button2{
+	height: 40px;
+	background-color: #FFFFFF;
+    border: 2px solid #D8D8D8;
+    color: #000000;
+    line-height: 3px;
+    font-size: 15px;
+    padding: 5px 15px 5px 15px;
+}
+.button2:hover{
+	border: 2px solid #F24607;
+	background-color: #FFFFFF;
+	color: #000000;
+}
+.button3{
+	height: 40px;
+	background-color: #FFFFFF;
+    border: 2px solid #D8D8D8;
+    color: #000000;
+    line-height: 3px;
+    font-size: 15px;
+    padding: 5px 15px 5px 15px;
+}
+.button3:hover{
+	border: 2px solid #FD7400;
+	background-color: #FFFFFF;
+	color: #000000;
+}
+.button4{
+	height: 40px;
+	background-color: #FFFFFF;
+    border: 2px solid #D8D8D8;
+    color: #000000;
+    line-height: 3px;
+    font-size: 15px;
+    padding: 5px 15px 5px 15px;
+}
+.button4:hover{
+	border: 2px solid #004358;
+	background-color: #FFFFFF;
+	color: #000000;
+}
+
+tr > td > a:hover{
+	color: #F55900;
+}

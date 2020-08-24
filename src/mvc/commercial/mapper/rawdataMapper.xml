@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="data">	
+	<select id="gu" resultType="String">
+		 select distinct sname from writing_tag order by 1 asc
+	</select>
+	<select id="dong" parameterType="String" resultType="String">
+		select distinct dong as hname from index_commercial where sigungu = #{guName}
+	</select>
+	<select id="large" resultType="String" parameterType="String">
+		select commercialcode as largeName from index_commercial where sigungu = #{guName} and dong = #{dongName}
+	</select>
+	<select id="medium" parameterType="String" resultType="String">
+		select service_name as cate from mergecommercialdata where commercial_name = #{largeName} and year = 2020
+	</select>
+	<select id="totalcount" resultType="commercial">
+		select count(*) as num, sigungu as guName from shopN s, index_commercial i where i.commercialcode = s.commercialcode group by sigungu
+	</select>
+	<select id="gucount" resultType="commercial">
+		select count(*) as num, sigungu as guName, cate as largeName from shopN s, index_commercial i where i.commercialcode = s.commercialcode group by sigungu, cate
+	</select>
+	<select id="information" parameterType="String" resultType="commercial"> 
+		<![CDATA[ select data.* from (select count(*) as num, sigungu as guName, cate as largeName from shopN s, index_commercial i where i.commercialcode = s.commercialcode and sigungu = #{guName} group by sigungu, cate) data where rownum <=10 ]]>
+	</select>
+	<select id="information2" parameterType="commercial" resultType="commercial">
+		<![CDATA[select * from (select count(*) as num, sigungu as guName, cate as largeName, dong as dongName from shopN s, index_commercial i where i.commercialcode = s.commercialcode and sigungu = #{guName} and dong = #{dongName} group by sigungu, dong, cate) where rownum <= 10 ]]> 
+	</select>
+	<select id="timePopChart" parameterType="String" resultType="chartvo">
+		select gungu, hour, avg(pop) as pop from floatpop where gungu = #{guname} group by gungu, hour order by hour
+	</select> 
+	<select id="timePopChartByGender" parameterType="String" resultType="chartvo">
+		select gungu, hour, gender, avg(pop) as pop from floatpop where gungu = #{guname} group by gungu, hour, gender order by hour
+	</select>
+	<select id="openBusi" parameterType="outervo" resultType="outervo">
+		select businum, emplynum, meanemply, busiopenratio from openbusi where gu=#{guname} <choose> <when test="dongname != null"> and dong = #{dongname} </when> <when test="dongname == null"> and dong = '계'</when> </choose>
+	</select>
+	<select id="closeBusi" parameterType="String" resultType="outervo">
+		select sigungu,quater, meanoper, closeoper, totalopermean, totalclosemean from closebus where sigungu=#{guname} and quater = 4
+	</select>
+	<select id="closeChart" parameterType="String" resultType="outervo">
+		select * from closebus where sigungu = #{guname} order by quater
+	</select>
+	<select id="shopN" parameterType="commercial" resultType="commercial">
+		select consum_total as total_selling, shopn as shopN from mergecommercialdata where service_name = #{cate} and year = 2020 and commercial_name = #{largeName}
+	</select> 
+	<select id="pop" parameterType="commercial" resultType="commercial">
+		select * from pop where commercialcode = #{largeName} and rownum = 1
+	</select>
+	<select id="popinfo" resultType="popvo">
+		select max(busipop) as busimax, min(busipop) as busimin, max(fpop) as fmax, min(fpop) as fmin, max(alpop) as almax, min(alpop) as almin from pop where year = 2020
+	</select>
+</mapper>

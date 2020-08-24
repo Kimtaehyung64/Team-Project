@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="login">
+	<select id="login" parameterType="logindto" resultType="int">
+	 	select count(*) from signup s, member_detail d 
+	 	where s.aid = #{aid} and d.anum = s.anum and s.apwd = #{apwd} and adivision = 0
+	  </select>
+	 <select id="info" parameterType="String" resultType="uservo">
+	 	select * from signup s, member_detail d,payment p where s.aid= #{aid} and d.anum = s.anum and p.anum=s.anum
+	 </select>
+	 <insert id="loginsert" parameterType="int">
+	 	insert into log_table values(log_table_seq.nextVal,#{anum},sysdate,null)
+	 </insert>
+	 <update id="logout" parameterType="int">
+	 	update log_table set logoutdate=sysdate where  lognum=(select max(lognum) from log_table where anum=#{anum})
+	 </update>
+</mapper>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="cboard">
+<insert id="insert" parameterType="cbvo"> <!-- 게시글 작성 -->
+insert into customer_board(c_num,c_type,c_subject,c_content,anum,aid)
+values(customer_board_seq.nextVal,#{c_type},#{c_subject},#{c_content},#{anum},#{aid})
+</insert>
+
+<select id="list" resultType="cbvo">
+select c_num,c_subject,aid,c_regdate,c_anschk,c_type 
+from customer_board c 
+order by c_num desc
+</select>
+
+<select id="viewDetail" resultType="cbvo" parameterType="int">
+select c.c_num, c.c_subject, substr(s.aid,1,4) aid,c.c_regdate,c.c_content,c.c_type
+from customer_board  c, signup s 
+where s.anum = c.anum and c_num = #{c_num}
+</select>
+
+<select id="replyDetail" resultType="cbvo" parameterType="int">
+select c.c_num, c.c_subject, substr(s.aid,1,4) aid,c.c_regdate,c_content,c.c_type,a.c_ans
+from customer_board  c, signup s, ADMIN_ANS a 
+where s.anum = c.anum and a.c_num = c.c_num and c.c_num = #{c_num}
+</select>
+
+ <update id="deletedetail" parameterType="int">
+ update customer_board
+ set c_del = 1 
+ where c_num = #{c_num}
+ </update>
+ 
+ <update id="updatedetail" parameterType="cbvo">
+ update customer_board
+ set c_type = #{c_type}, c_subject = #{c_subject}, c_content = #{c_content}, c_regdate = sysdate 
+ where c_num = #{c_num}
+ </update>
+
+<select id="listall" parameterType="cuspvo" resultType="cbvo">
+select * from (
+select rownum rnum, a.* from (
+select c.c_num,c.c_subject,c.aid,c.c_regdate,c.c_anschk,c.c_type 
+from customer_board c, signup s 
+where s.aid = c.aid AND c_del = 0 
+		<trim>
+			<if test="searchType=='title'">
+				AND c_subject like '%'||#{searchValue}||'%'
+			</if>
+			<if test="searchType=='contents'">
+				AND c_content like '%'||#{searchValue}||'%'
+			</if>			
+		</trim>
+
+ ) a ) where rnum between #{start} and #{end}
+ order by c_num desc
+ </select>
+
+ <select id="countall" parameterType="cuspvo" resultType="int">
+ select count(*) cnt from customer_board
+ where c_del = 0
+ <trim>
+	<if test="searchValue != null and searchValue != '' ">
+			<if test="searchType=='title'">
+				AND c_subject like '%'||#{searchValue}||'%'
+			</if>
+			<if test="searchType=='contents'">
+				AND c_content like '%'||#{searchValue}||'%'
+			</if>			
+      </if>
+	</trim>
+ </select>
+
+</mapper>  

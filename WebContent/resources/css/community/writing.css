@@ -1,0 +1,31 @@
+p {
+	margin-top: 10px;
+}
+
+.col-sm-2 {
+	font-size: 30px;
+	color: #F25C05;
+}
+
+#title {
+	width: 100%;
+}
+
+#writebutton {
+	text-align: center;
+	margin-top: 10px;
+}
+
+.btn {
+	padding: 0.75rem 2rem;
+}
+ 
+#ir1 {
+	width: 1111px;
+}
+.fa-times{
+	color: #004358;
+}
+.fa-check{
+	color: #FD7400;
+}

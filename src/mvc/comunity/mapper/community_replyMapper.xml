@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="commureply">
+
+<select id="list" parameterType="replypagevo" resultType="replyvo">
+select * from (
+select rownum rnum, a.* from (
+select renum, wnum, r_text, r_writer, substr(r_writer,1,4) pr_writer, rindate, rchgdate from community_reply where wnum = #{wnum} order by rindate desc
+ ) a ) where rnum between #{start} and #{end}
+</select>
+
+<select id="count" parameterType="int" resultType="int">
+select count(*) cnt from community_reply where wnum = #{wnum}
+</select>
+
+<insert id="insert" parameterType="replyvo">
+insert into community_reply values(community_reply_seq.nextVal,#{wnum},#{r_text},#{r_writer},sysdate,sysdate)
+</insert>
+
+<update id="update" parameterType="replyvo">
+update community_reply set r_text = #{r_text}, rchgdate = sysdate where renum = #{renum}
+</update>
+
+<delete id="delete" parameterType="replyvo">
+delete from community_reply where renum = #{renum} and wnum = #{wnum}
+</delete>
+
+</mapper>

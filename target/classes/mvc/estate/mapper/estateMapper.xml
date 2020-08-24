@@ -1,0 +1,525 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="estate">
+ 
+ 	<insert id="addproduct" parameterType="fvo">
+ 		<selectKey keyProperty="idx" resultType="int" order="BEFORE">
+ 			select max(fnum)+1 from fsale
+ 		</selectKey>
+ 		insert into fsale values(#{idx},#{anum},#{fkind},#{fsalekind},#{deposit},#{rent},#{fstatus},sysdate)
+ 	</insert>
+ 	
+ 	<insert id="addproductinfo" parameterType="fivo">
+ 		<selectKey keyProperty="idx" resultType="int" order="BEFORE">
+ 			select max(fnum) FROM fsale
+ 		</selectKey>
+ 		
+ 		insert into fsale_info values(fsale_info_seq.nextVal,#{idx},#{flocation},#{zipNo},#{tfloor},#{bfloor}, #{fexarea},#{fsuparea},#{heating},#{fcontent}
+ 		, #{fadmin} ,#{fadop},#{eleva},#{fmove}, #{district}, #{admindong},#{lat} ,#{lng},#{fsubject}
+ 		)
+ 	</insert>
+ 	<!-- 반복 -->
+	<insert id="addFinfoStore" parameterType="fisvo">
+		<selectKey keyProperty="fpnum" resultType="int" order="BEFORE">
+			select max(fpnum) FROM fsale_info
+		</selectKey>
+		insert into fsale_info_store values(fsale_info_store_seq.nextVal,#{fpnum},#{toilet},#{fparking},#{usearea},#{mpurpo},#{independent},#{cooling},'-')
+	</insert>
+ 	<!-- 반복 -->
+ 	<insert id="addFinfoEstate">
+ 		<selectKey keyProperty="fpnum" resultType="int" order="BEFORE">
+ 			select max(fpnum) FROM fsale_info
+ 		</selectKey>
+ 		insert into fsale_info_estate values(fsale_info_estate_seq.nextVal,#{fpnum},#{animal},#{fcharter},#{built},#{veranda},#{mpurpo},#{foption},#{fsecuri},#{shortrent},#{monthly},#{charter},#{fsubject},#{trades})
+ 	</insert>
+ 	<!-- 반복 -->
+ 	<insert id="addImg" parameterType="fvo">
+ 		<selectKey keyProperty="idx" resultType="int" order="BEFORE">
+ 			select max(fnum) FROM fsale
+ 		</selectKey>
+ 		insert into fsale_img(finum,fnum,fname,ftype) 
+ 		select  B.finum as finum,A.* from (
+ 		<foreach collection="fimg" item="e" separator="UNION ALL" >
+ 			<!--  into product_img values(product_img_seq.nextVal,#{idx},'${e}') -->
+ 				select #{idx} as fnum,'${e.fname}' as fname , '${e.ftype}' as ftype from dual
+ 		</foreach>
+ 		) A,(select max(finum)+1 as finum from Fsale_img ) B
+ 	</insert>
+ 	
+
+ 	<select id="fileid" parameterType="int" resultType="String">
+ 		select aid from signup where anum=#{num}
+ 	
+ 	</select>
+ 
+ 
+ 
+ 	
+ 	<!-- 디테일  -->
+ 	<select id="Detail" resultMap="f_detail" parameterType="int" >
+ 		
+ 	
+ 		select *
+ 	
+ 		from fsale f , fsale_info fi , fsale_img fimg 
+ 		
+ 		 where f.fnum = fi.fpnum and f.fnum = fimg.fnum and f.fnum=#{num}
+ 	</select>
+ 	
+ 	
+ 	
+ 	<!-- fsale  -->
+ 	
+ 	<resultMap type="fvo" id="f_detail">
+ 		<id property="fnum" column="fnum"/>
+ 		<result property="anum" column="anum"/>
+ 		<result property="fkind" column="fkind"/>
+ 		<result property="fsalekind" column="fsalekind"/>
+ 		<result property="deposit" column="deposit"/>
+ 		<result property="rent" column="rent"/>
+ 		<result property="fstatus" column="fstatus"/>
+ 		<result property="addDate" column="adddate"/>
+ 		<association property="finvo" column="fnum"  javaType="fivo">
+ 			<id property="fpnum" column="fpnum"/>
+ 			<result property="flocation" column="flocation"/>
+ 			<result property="zipNo" column="zipno"/>
+ 			<result property="tfloor" column="tfloor"/>
+ 			<result property="bfloor" column="bfloor"/>
+ 			<result property="fexarea" column="fexarea"/>
+ 			<result property="fsuparea" column="fsuparea"/>
+ 			<result property="heating" column="heating"/>
+ 			<result property="fcontent" column="fcontent"/>
+ 			<result property="fadmin" column="fadmin"/>
+ 			<result property="fadop" column="fadop"/>
+ 			<result property="eleva" column="eleva"/>
+ 			<result property="fmove" column="fmove"/>
+ 			<result property="district" column="district"/>
+ 			<result property="admindong" column="admindong"/>
+ 			<result property="lat" column="lat"/>
+ 			<result property="lng" column="lng"/>
+ 			<association property="fievo" column="fpnum"  javaType="fievo">
+ 				<id property="fpenum" column="fpenum"/>
+ 				<result property="animal" column="animal"/>
+ 				<result property="fcharter" column="fcharter"/>
+ 				<result property="built" column="built"/>
+ 				<result property="veranda" column="veranda"/>
+ 				<result property="mpurpo" column="mpurpo"/>
+ 				<result property="foption" column="foption"/>
+ 				<result property="fsecuri" column="fsecuri"/>
+ 				<result property="shortrent" column="shortrent"/>
+ 				<result property="monthly" column="monthly"/>
+ 				<result property="charter" column="charter"/>
+ 				<result property="fsubject" column="fsubject"/>
+ 			</association>
+ 			<association property="fisvo" column="fpnum"  javaType="fisvo">
+ 				<id property="fpsnum" column="fpsnum"/>
+ 				<result property="toilet" column="toilet"/>
+ 				<result property="fparking" column="fparking"/>
+ 				<result property="usearea" column="usearea"/>
+ 				<result property="mpurpo" column="mpurpo"/>
+ 				<result property="independent" column="independent"/>
+ 				<result property="cooling" column="cooling"/>
+ 				<result property="revenue" column="revenue"/>
+ 				<result property="fright" column="fright"/>
+ 				<result property="financing" column="financing"/>
+ 			</association>
+ 		</association>
+ 			<association property="sign" column="anum"  javaType="signVO">
+ 				<id property="dnum" column="dnum"/>
+ 				<result property="dname" column="dname"/>
+ 				<result property="dtel" column="dtel"/>
+ 			</association>
+ 			
+ 			<collection property="fimg" javaType="java.util.List" resultMap="fimg" ofType="fimgvo"/>
+ 		
+ 	</resultMap>
+ 	<resultMap type="fimgvo" id="fimg">
+ 		<id property="finum" column="finum"/>
+ 		
+ 		<result property="fname" column="fname" />
+ 		<result property="ftype" column="ftype" />
+ 	</resultMap>
+ 	<resultMap type="signVO" id="sign_detail">
+ 		<id property="anum" column="anum"/>
+ 		<result property="dname" column="dname"/>
+ 		<result property="dtel" column="dtel"/>
+ 	</resultMap>
+ 	<select id="fsale_detail_main" resultMap="f_detail" parameterType="fvo" >
+ 		
+select 
+*
+ 		from 
+ 			(select A.* from (
+                select rownum rnum,S.* from fsale S where fnum =#{fnum})A WHERE rnum=1) 
+ f, fsale_info fi,
+ <choose>
+ 	<when test="fkind == '상가/사무실'">
+ 		fsale_info_store fis
+ 	</when>
+ 	<otherwise>
+ 		fsale_info_estate fie
+ 	</otherwise>
+ </choose>
+ 		 where  f.fnum=fi.fnum   and 
+ 		 <choose>
+ 		 	<when test="fkind == '상가/사무실'">
+ 		 		 fi.fpnum=fis.fpnum
+ 		 	</when>
+ 		 	<otherwise>
+ 		 		 fi.fpnum=fie.fpnum
+ 		 	</otherwise>
+ 		 </choose>
+ 		 
+ 	</select>
+ 	<select id="fsale_detail_signup" parameterType="int" resultMap="sign_detail">
+ 		select md.dname dname,md.dtel dtel from signup sign, member_detail md where sign.anum=#{num} and sign.anum=md.anum
+ 	</select>
+ 	
+ 	<select id="fsale_info_store" parameterType="int" resultType="fisvo">
+ 		select * from fsale_info_store where fpnum = #{num}
+ 	</select>
+ 		<select id="fsale_info_estate" parameterType="int" resultType="fievo">
+ 		select * from fsale_info_estate where fpnum = #{num}
+ 	</select >
+ 	<select id="fsale_info_img" parameterType="int" resultType="fimgvo">
+ 		select * from fsale_img where fnum=#{num}
+ 	</select>
+ 	
+ 	
+ 	<select id="fsale_count" resultType="int" parameterType="esvo">
+ 	select count(rownum)   from 
+ 		(select DISTINCT f.fnum,f.fkind,f.fsalekind,f.deposit,f.rent,fi.tfloor,fi.fexarea,fi.fcontent,fi.flocation,fi.lat,fi.lng,fi.fadmin,fi.fadop,fi.fsubject from fsale f,fsale_info fi
+ 		 where f.fnum=fi.fnum and f.fstatus='N'  order by 1 asc) a where
+ 		  a.fkind in(
+ 		  <foreach collection="build"  item="k" separator="," >
+    	<choose>
+    		<when test="k == 0 ||k == 1 || k == 2 || k == 3">
+    			
+    			<choose>
+    				<when test="k == 0">
+ 						'원룸'
+ 					</when>
+ 					<when test="k == 1">
+ 						'투룸' ,'쓰리룸'
+ 					</when>
+ 					<when test="k == 2">
+ 						'오피스텔'
+ 					</when>
+ 					<when test="k == 3">
+ 						'아파트'
+ 					</when>
+    			</choose>
+    			
+    		</when>
+    		<when test="k== 4">
+    			'상가/사무실'
+    		</when>
+    	</choose>
+    </foreach>
+ 		  
+ 		  ) and a.fsalekind in (
+ 		  
+ 		
+ 		  <foreach collection="rentv" item='i' separator=",">
+    <choose>
+    	<when test="i == 0">
+    		'월세'
+    	</when>
+    	<when test="i == 1">
+    		'전세' 
+    	</when>
+    	<when test="i == 2">
+    		'매매'
+    	</when>
+    </choose>
+    </foreach>
+    
+ 		  ) and
+ 		  ( <foreach collection="rentv" item="k" separator="and"> 
+	     <choose>
+	     	<when test="k == 2">
+	     			<choose>
+ 							<when test="trades_to == '무제한'">
+ 								deposit > TO_NUMBER(#{trades_from}) 
+ 							</when>
+ 							<otherwise>
+ 								deposit between TO_NUMBER(#{trades_from}) and TO_NUMBER(#{trades_to}) 
+ 							</otherwise>
+ 						</choose>
+	     	</when>
+	     	<when test="k == 0 or k == 1">
+ 						<choose>
+ 							<when test="deposits_to == '무제한'">
+ 								deposit > TO_NUMBER(#{deposits_from})
+ 								
+ 								
+ 							</when>
+ 							<otherwise>
+ 								deposit between TO_NUMBER(#{deposits_from}) and TO_NUMBER(#{deposits_to})
+ 							</otherwise>
+ 						</choose>
+ 						<choose>
+ 							<when test="k == 0">
+ 								<choose>
+ 									<when test="monthmoenys_to == '무제한'">
+ 									and	rent > TO_NUMBER(#{monthmoenys_from}) 
+ 									</when>
+ 									<otherwise>
+ 									and rent between TO_NUMBER(#{monthmoenys_from}) and TO_NUMBER(#{monthmoenys_to}) 
+ 									</otherwise>
+ 								</choose>
+ 							</when>
+ 						</choose>
+ 						
+ 					</when>
+	     </choose>
+     </foreach>
+ 		   
+ 		   )
+ 		   and
+ 		   
+ <foreach collection="floor" item="i" separator="or" open="(" close=")">
+    	<choose>
+    		<when test="i ==1 or i ==2 or i ==3 or i ==4 or i ==5 or i ==6">
+    			<choose>
+    				<when test="i == 1">
+    					 tfloor like '1층%'
+    				</when>
+    				<when test="i == 2">
+    					 tfloor like '2층%'
+    				</when>
+    				<when test="i == 3">
+    				 tfloor like '3층%'
+    				 </when>
+    				<when test="i == 4">
+    					 tfloor like '4층%'
+    				</when>
+    				<when test="i == 5">
+    					 tfloor like '5층%'
+    				</when>
+    				<when test="i == 6">
+    					 tfloor like '6층%'
+    				</when>
+    			</choose>
+    		  
+    		</when>
+    		<when test="i == 7">
+    			tfloor in (select tfloor from fsale_info where  tfloor like '1층%' or  tfloor like '2층%'or  tfloor like '3층%' or  tfloor like '4층%' or  tfloor like '6층%' or  tfloor like '지하%' or  tfloor like '옥탑' group by tfloor)
+    		</when>
+    		<when test="i == 8">
+    			tfloor like "%지하%"
+    		</when>
+    		<when test="i == 8">
+    			tfloor like "%옥탑%" or    tfloor like "%옥상%"
+      		</when>
+    	</choose>
+    </foreach>
+
+and
+
+
+<choose>
+ 							<when test="roomArea_to == '무제한'">
+ 								a.fexarea > TO_NUMBER(#{roomArea_from})
+ 								
+ 								
+ 							</when>
+ 							<otherwise>
+ 								a.fexarea between TO_NUMBER(#{roomArea_from}) and TO_NUMBER(#{roomArea_to})
+ 							</otherwise>
+ 	</choose>
+
+<!-- and
+<choose>
+ 							<when test="roomCare_to == '무제한'">
+ 								a.fadmin > TO_NUMBER(#{roomCare_from})
+ 								
+ 								
+ 							</when>
+ 							<otherwise>
+ 								a.fadmin between TO_NUMBER(#{roomCare_from}) and TO_NUMBER(#{roomCare_to})
+ 							</otherwise>
+ 						</choose> -->
+<if test="keyword != null and keyword != '' ">
+	or (
+		a.flocation like '%'||#{keyword}||'%' or a.fcontent like '%'||#{keyword}||'%'  or a.fadop like '%'||#{keyword}||'%' or a.fsubject like '%'||#{keyword}||'%'
+	)
+</if>
+
+ 	</select>
+ 	
+ 	
+ 	
+ 	
+ 	<select id="fsale_list" resultMap="f_detail" parameterType="epvo">
+ 	select * from (select rownum as rnum ,a.fnum,a.fkind,a.fsalekind,a.deposit,a.rent,a.tfloor,a.fexarea,a.fcontent,a.flocation,a.lat,a.lng,a.fadmin,a.fadop  from 
+ 		(select DISTINCT f.fnum,f.fkind,f.fsalekind,f.deposit,f.rent,fi.tfloor,fi.fexarea,fi.fcontent,fi.flocation,fi.lat,fi.lng,fi.fadmin,fi.fadop,fi.fsubject from fsale f,fsale_info fi
+ 		 where f.fnum=fi.fnum and f.fstatus='N' order by 1 asc) a where
+ 		  a.fkind in(
+ 		  <foreach collection="esvo.build"  item="k" separator="," >
+    	<choose>
+    		<when test="k == 0 ||k == 1 || k == 2 || k == 3">
+    			<choose>
+    				<when test="k == 0">
+ 						'원룸'
+ 					</when>
+ 					<when test="k == 1">
+ 						'투룸' ,'쓰리룸'
+ 					</when>
+ 					<when test="k == 2">
+ 						'오피스텔'
+ 					</when>
+ 					<when test="k == 3">
+ 						'아파트'
+ 					</when>
+    			</choose>
+    		</when>
+    		<when test="k== 4">
+    			'상가/사무실'
+    		</when>
+    	</choose>
+    </foreach>
+ 		  ) and a.fsalekind in (
+ 		  <foreach collection="esvo.rentv" item='i' separator=",">
+    <choose>
+    	<when test="i == 0">
+    		'월세'
+    	</when>
+    	<when test="i == 1">
+    		'전세' 
+    	</when>
+    	<when test="i == 2">
+    		'매매'
+    	</when>
+    </choose>
+    </foreach>
+ 		  ) and
+ 		  ( <foreach collection="esvo.rentv" item="k" separator="and"> 
+	     <choose>
+	     	<when test="k == 2">
+	     			<choose>
+ 							<when test="esvo.trades_to == '무제한'">
+ 								deposit > TO_NUMBER(#{esvo.trades_from}) 
+ 							</when>
+ 							<otherwise>
+ 								deposit between TO_NUMBER(#{esvo.trades_from}) and TO_NUMBER(#{esvo.trades_to}) 
+ 							</otherwise>
+ 						</choose>
+	     	</when>
+	     	<when test="k == 0 or k == 1">
+ 						<choose>
+ 							<when test="esvo.deposits_to == '무제한'">
+ 								deposit > TO_NUMBER(#{esvo.deposits_from})			
+ 							</when>
+ 							<otherwise>
+ 								deposit between TO_NUMBER(#{esvo.deposits_from}) and TO_NUMBER(#{esvo.deposits_to})
+ 							</otherwise>
+ 						</choose>
+ 						<choose>
+ 							<when test="k == 0">
+ 								<choose>
+ 									<when test="esvo.monthmoenys_to == '무제한'">
+ 									and	rent > TO_NUMBER(#{esvo.monthmoenys_from}) 
+ 									</when>
+ 									<otherwise>
+ 									and rent between TO_NUMBER(#{esvo.monthmoenys_from}) and TO_NUMBER(#{esvo.monthmoenys_to}) 
+ 									</otherwise>
+ 								</choose>
+ 							</when>
+ 						</choose>	
+ 					</when>
+	     </choose>
+     </foreach>
+ 		   )
+ 		 and
+ <foreach collection="esvo.floor" item="i" separator="or" open="(" close=")">
+    	<choose>
+    		<when test="i ==1 or i ==2 or i ==3 or i ==4 or i ==5 or i ==6">
+    			<choose>
+    				<when test="i == 1">
+    					 tfloor like '1층%'
+    				</when>
+    				<when test="i == 2">
+    					 tfloor like '2층%'
+    				</when>
+    				<when test="i == 3">
+    				 tfloor like '3층%'
+    				 </when>
+    				<when test="i == 4">
+    					 tfloor like '4층%'
+    				</when>
+    				<when test="i == 5">
+    					 tfloor like '5층%'
+    				</when>
+    				<when test="i == 6">
+    					 tfloor like '6층%'
+    				</when>
+    			</choose>  
+    		</when>
+    		<when test="i == 7">
+    			tfloor in (select tfloor from fsale_info where  tfloor like '1층%' or  tfloor like '2층%'or  tfloor like '3층%' or  tfloor like '4층%' or  tfloor like '6층%' or  tfloor like '지하%' or  tfloor like '옥탑' group by tfloor)
+    		</when>
+    		<when test="i == 8">
+    			tfloor like "%지하%"
+    		</when>
+    		<when test="i == 8">
+    			tfloor like "%옥탑%" or    tfloor like "%옥상%"
+      		</when>
+    	</choose>
+    </foreach>
+and
+<choose>
+ 							<when test="esvo.roomArea_to == '무제한'">
+ 								a.fexarea > TO_NUMBER(#{esvo.roomArea_from})			
+ 							</when>
+ 							<otherwise>
+ 								a.fexarea between TO_NUMBER(#{esvo.roomArea_from}) and TO_NUMBER(#{esvo.roomArea_to})
+ 							</otherwise>
+ 						</choose>
+<if test="esvo.keyword != null and esvo.keyword != ''">
+	or (a.flocation like '%'||#{esvo.keyword}||'%' or a.fcontent like '%'||#{esvo.keyword}||'%'  or a.fadop like '%'||#{esvo.keyword}||'%' or a.fsubject like '%'||#{esvo.keyword}||'%')
+</if>
+)where  rnum between #{start} and #{end}
+ 	</select>
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	<!-- and
+<choose>
+ 							<when test="esvo.roomCare_to == '무제한'">
+ 								a.fexarea > TO_NUMBER(#{esvo.roomCare_from})
+ 								
+ 								
+ 							</when>
+ 							<otherwise>
+ 								a.fexarea between TO_NUMBER(#{esvo.roomCare_from}) and TO_NUMBER(#{esvo.roomCare_to})
+ 							</otherwise>
+ 						</choose> -->
+ 	
+ 	<select id="getListNum" parameterType="int" resultMap="f_detail">
+ 		select * from fsale f, fsale_info fi  where f.fnum=fi.fnum and f.fnum=#{num}
+ 	
+ 	</select>
+ 	
+ 	<select id="list_img" parameterType="int" resultType="fimgvo">
+ 		select rownum , A.* from (select * from fsale_img where fnum=#{num}) A where rownum = 1 
+ 	</select>
+ 	
+ 	
+ 	<!-- <select id="estate.fnumList" resultType="fvo">
+ 		select * from fsale  where fnum  between 100000 and 14660167
+ 	</select>
+ 	
+ 	<select id="estate.finumList" resultType="fimgvo">
+ 		select rownum , A.fnum from (
+		select * from fsale_img where fnum not in(select f.fnum from fsale f, fsale_img fi where f.fnum=fi.fnum) 
+		order by 1 asc) A  where rownum between 1 and 4
+ 	</select>
+ 	<update id="fimgUpdate" parameterType="fvo" >
+ 		update fsale_img set fnum=#{nums[0]} where fnum=#{nums[1]}
+ 	</update> -->
+ </mapper>

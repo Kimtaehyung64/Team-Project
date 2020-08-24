@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="auction">
+	<insert id="addmian" parameterType="amainvo">
+		insert into actmain values(actmain_seq.nextVal,#{bid},#{byongdo},#{baddra},#{baddrb},#{bzipcode},#{bweight},#{tweight},0,sysdate,null)
+	</insert>
+	<insert id="addde" parameterType="adevo">
+		insert into actmainde values(actmainde_seq.nextVal,actmain_seq.currVal,#{managepee},#{bplan},#{wimage},#{imagea},#{imageb},#{imagec},sysdate,null)
+	</insert>
+	<insert id="addip" parameterType="aipvo">
+		insert into ipchal values(ipchal_seq.nextVal,actmain_seq.currVal,TO_DATE(#{enddate},'YYYY-MM-DD HH24:MI'),#{ipdanwe},#{ideprice},1,#{subject},#{text},sysdate,null,null,0)
+	</insert>
+	
+	<select id="mainsel" resultType="aviewmain" parameterType="aviewpage">
+	select * from (
+		select rownum r_num, a.* from (
+		select a.anum,a.bid,fn_yongdo_name(a.byongdo) as yongdo,a.baddra as addr,a.bweight,a.tweight,a.hit
+                ,b.wimage,TO_CHAR(p.ideprice,'FM999,999,999,999') as ideprice,p.subject,TO_CHAR(p.enddate,'YYYY"년"MM"월"DD"일" HH24"시"MI"분"') as enddate,TO_CHAR( DECODE(nvl(fn_higt_ipchalper(p.ipnum),0),0,nvl(p.ideprice,0),nvl(fn_higt_ipchalper(p.ipnum),0)),'FM999,999,999,999') as hprice
+                , fn_basedata_name(3,1,p.status) as status,TO_CHAR(a.indate,'YYYY.MM.DD') as indate,p.youc  
+ from actmain a , actmainde b , ipchal p
+where b.anum = a.anum
+  and p.anum = a.anum
+<if test="searchValue != null">
+	<choose>
+		<when test='searchType=="0"'>  
+		and p.subject like '%'||#{searchValue}||'%'
+		</when>
+		<when test='searchType=="1"'>  
+		and a.baddra like '%'||#{searchValue}||'%'
+		</when>
+	</choose>
+</if>	 
+<if test="statussel != 0">
+and p.status = #{statussel}
+</if>  
+<if test="mulgun != 0">
+and a.byongdo = #{mulgun}
+</if>  
+<choose>
+<when test="sortindex==0">  
+order by a.indate desc
+</when>
+<when test="sortindex==1">
+order by p.ideprice asc
+</when>
+<when test="sortindex==2">
+order by p.ideprice desc
+</when>
+<when test="sortindex==3">
+order by p.enddate asc
+</when>
+<when test="sortindex==4">
+order by p.enddate desc
+</when>
+<when test="sortindex==5">
+order by a.hit asc
+</when>
+<when test="sortindex==6">
+order by a.hit desc
+</when>
+</choose>
+		) a
+		) where r_num between #{start} and #{end}
+	</select>
+	<select id="totalcount" resultType="int" parameterType="aviewpage">
+	select count(a.anum) as cnt  
+      from actmain a , actmainde b , ipchal p
+     where b.anum = a.anum
+       and p.anum = a.anum
+    <if test="searchValue != null">
+	<choose>
+		<when test='searchType=="0"'>  
+		and p.subject like '%'||#{searchValue}||'%'
+		</when>
+		<when test='searchType=="1"'>  
+		and a.baddra like '%'||#{searchValue}||'%'
+		</when>
+	</choose>
+    </if>	   
+	<if test="statussel != 0">
+	and p.status = #{statussel}
+	</if>  
+	<if test="mulgun != 0">
+	and a.byongdo = #{mulgun}
+	</if> 
+	</select>	
+	<update id="hithit" parameterType="int">
+		update actmain set hit = hit
+		+1 where anum =#{anum}
+	</update>
+	<update id="upstaus">
+	{CALL update_auction_status}
+	</update>
+	<update id="tokenins" parameterType="ltoken">
+	update LOGINTOKEN set token = #{token} where aid = #{aid} and gubun = 'P'
+	</update>
+	<select id="selaid" parameterType="int" resultType="String">
+	select a.bid from( 
+	select bid from ipchalper where ipnum = #{ipnum} order by ipdate desc) a
+	where rownum = 1 
+	</select>
+	<select id="fcmid" parameterType="fcmt" resultType="fcmt">
+	select token, (select subject from ipchal where ipnum = #{ipnum}) as subject  
+  	  from logintoken
+	 where aid = #{aid}
+	</select>
+</mapper>
+
+
+

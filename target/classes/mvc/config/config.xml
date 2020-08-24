@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+ "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<typeAliases> 
+		<typeAlias type="mvc.comunity.vo.CommunityVO" alias="comuVO" />
+		<typeAlias type="mvc.mypage.vo.MyproductVO" alias="myprovo"/>
+		<typeAlias type="mvc.commercial.vo.DataVO" alias="commercial" />
+		<typeAlias type="mvc.mypage.vo.MyPageVO" alias="mypagevo" />
+		<typeAlias type="mvc.payment.vo.PaymentVO" alias="paymentvo" />
+		<typeAlias type="mvc.commercial.vo.PopVO" alias="popvo" />
+		<typeAlias type="mvc.auction.vo.AuctionAddMainVO" alias="amainvo" />
+		<typeAlias type="mvc.auction.vo.AuctionAddDeVO" alias="adevo" />
+		<typeAlias type="mvc.auction.vo.AuctionAddIpVO" alias="aipvo" />
+		<typeAlias type="mvc.auction.vo.AuctionPageVO" alias="aviewpage" />
+		<typeAlias type="mvc.auction.vo.AuctionViewVO" alias="aviewmain" />
+		<typeAlias type="mvc.auction.vo.AuctionMyipViewVO" alias="amyview" />
+		<typeAlias type="mvc.auction.vo.AuctionmypageipVO" alias="aiplist" />
+		<typeAlias type="mvc.auction.vo.AuctionMyJsonVO" alias="alct" />
+		<typeAlias type="mvc.login.vo.LogintokenVO" alias="ltoken" />
+		<typeAlias type="mvc.auction.vo.FcmidVO" alias="fcmt" />	
+		<typeAlias type="mvc.commercial.vo.CommercialProductVO" alias="cpvo" />
+		<typeAlias type="mvc.login.vo.UserVO" alias="uservo" />
+		<typeAlias type="mvc.signup.vo.SignUpVO" alias="signVO"/>	
+		<typeAlias type="mvc.auction.vo.AuctionDetailVO" alias="actdetail"/>
+		<typeAlias type="mvc.mypage.vo.Member_DetailVO" alias="member_detailvo" />
+		<typeAlias type="mvc.payment.vo.Payment_DetailVO" alias="payment_detailvo" />
+		<typeAlias type="mvc.commercial.vo.PageVO" alias="pvo" />
+		<typeAlias type="mvc.comunity.vo.Community_BoardVO" alias="cboardvo" />
+		<typeAlias type="mvc.comunity.vo.Community_PageVO" alias="commupvo"/>
+		<typeAlias type="mvc.comunity.vo.Community_ReplyVO" alias="replyvo"/>
+		<typeAlias type="mvc.comunity.vo.Community_Reply_PageVO" alias="replypagevo"/>
+		<typeAlias type="mvc.auction.vo.AuctionSaleVO" alias="sale"/>
+		<typeAlias type="mvc.auction.vo.IpchalperVO" alias="ipchal"/>
+		<typeAlias type="mvc.customer.vo.Customer_BoardVO" alias="cbvo" />
+		<typeAlias type="mvc.customer.vo.Customer_PageVO" alias="cuspvo" />
+		<typeAlias type="mvc.login.vo.LoginDTO" alias="logindto" />
+		<typeAlias type="mvc.commercial.vo.RealPriceVO" alias="realvo" />	
+		<typeAlias type="mvc.estate.vo.ForSaleVO" alias="fvo"/>
+		<typeAlias type="mvc.estate.vo.ForSale_InfoVO" alias="fivo"/>
+		<typeAlias type="mvc.estate.vo.ForSale_Info_EstateVO" alias="fievo"/>
+		<typeAlias type="mvc.estate.vo.ForSale_Info_StoreVO" alias="fisvo"/>
+		<typeAlias type="mvc.estate.vo.Forsale_ImgVO" alias="fimgvo"/>
+		<typeAlias type="mvc.estate.vo.EstateVO" alias="evo"/>
+		<typeAlias type="mvc.estate.vo.EstatePageVO" alias="epvo"/>
+		<typeAlias type="mvc.estate.vo.EstateSearchVO" alias="esvo"/>
+		<typeAlias type="mvc.commercial.vo.ChartVO" alias="chartvo"/>
+		<typeAlias type="mvc.commercial.vo.OuterDataVO" alias="outervo"/>
+		<typeAlias type="mvc.commercial.vo.KeywordVO" alias="keyvo"/>
+	</typeAliases>
+</configuration>

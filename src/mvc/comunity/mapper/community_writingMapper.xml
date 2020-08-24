@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="commuwriting">
+ 
+ <insert id="writing" parameterType="cboardvo">
+ insert into community_board values(community_writing_seq.nextVal,#{wgubun},
+ #{wloc1},#{wloc2},#{wtitle},#{wcontents},sysdate,sysdate,0,0,0,#{anum})
+ </insert>
+
+ <select id="wridetail" parameterType="int" resultType="cboardvo">
+ select w.wnum wnum, w.wgubun wgubun, w.wloc1 wloc1, w.wloc2 wloc2, w.wtitle wtitle, w.wcontents wcontents, TO_CHAR(w.wchgdate, 'YYYY"년 "MM"월 "DD"일" HH24"시" MI"분"') wchgdate, 
+ w.whit whit, w.wrec wrec, s.aid aid, substr(s.aid,1,4) paid from signup s, community_board w where s.anum = w.anum and wnum=#{wnum}
+ </select>
+ 
+ <update id="updatewhit" parameterType="int">
+ update community_board set whit = whit+1 where wnum = #{wnum}
+ </update>
+ 
+ <update id="updatewrec" parameterType="int">
+ update community_board set wrec = wrec+1 where wnum = #{wnum}
+ </update>
+ 
+ <update id="updatedetail" parameterType="cboardvo">
+ update community_board set wgubun = #{wgubun}, wtitle = #{wtitle}, wcontents = #{wcontents}, wloc1 = #{wloc1}, wloc2 = #{wloc2}, wchgdate = sysdate 
+ where wnum = #{wnum}
+ </update>
+ 
+ <update id="deletedetail" parameterType="int">
+ update community_board set wdel = 1 where wnum = #{wnum}
+ </update>
+ 
+ <select id="listall" parameterType="commupvo" resultType="cboardvo">
+select * from (
+select rownum rnum, a.* from (
+select wnum,wgubun,wloc1,wloc2,wtitle,TO_CHAR(wchgdate, 'YYYY"년 "MM"월" DD"일" HH24"시 "MI"분"') wchgdate,whit,wrec from community_board where wdel = 0
+<trim>
+			<if test="searchType=='title'">
+				AND wtitle like '%'||#{searchValue}||'%'
+			</if>
+			<if test="searchType=='contents'">
+				AND wcontents like '%'||#{searchValue}||'%'
+			</if>
+			<if test="searchType=='comugu'">
+				AND wloc1 like '%'||#{searchValue}||'%'
+			</if>
+			<if test="searchType=='comudong'">
+				AND wloc2 like '%'||#{searchValue}||'%'
+			</if>
+		</trim>
+ <choose>
+ <when test="sortindex==1">
+ order by wnum desc
+ </when>
+  <when test="sortindex==2">
+ order by wnum asc
+ </when>
+  <when test="sortindex==3">
+ order by whit desc
+ </when>
+  <when test="sortindex==4">
+ order by whit asc
+ </when>
+  <when test="sortindex==5">
+ order by wrec desc
+ </when>
+  <when test="sortindex==6">
+ order by wrec asc
+ </when>
+ </choose>
+ ) a ) where rnum between #{start} and #{end}
+ </select>
+
+ <select id="countall" parameterType="commupvo" resultType="int">
+ select count(*) cnt from community_board where wdel = 0
+ <trim>
+<if test="searchValue != null and searchValue != '' ">
+			<if test="searchType=='title'">
+				AND wtitle like '%'||#{searchValue}||'%'
+			</if>
+			<if test="searchType=='contents'">
+				AND wcontents like '%'||#{searchValue}||'%'
+			</if>
+			<if test="searchType=='comugu'">
+				AND wloc1 like '%'||#{searchValue}||'%'
+			</if>
+			<if test="searchType=='comudong'">
+				AND wloc2 like '%'||#{searchValue}||'%'
+			</if>
+      </if>
+	</trim>
+ </select>
+<select id="getWrec" parameterType="int" resultType="cboardvo">
+ select * from community_board where wnum=#{wnum}
+</select>
+
+</mapper>

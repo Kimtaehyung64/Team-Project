@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="auctionmyip">
+	<select id="ipsel" resultType="amyview" parameterType="String">
+select  a.anum,p.ipnum, b.wimage,fn_yongdo_name(a.byongdo) as yongdo, a.baddra as addr
+       , TO_CHAR(DECODE(nvl(fn_higt_ipchalper(p.ipnum),0),0,nvl(p.ideprice,0),nvl(fn_higt_ipchalper(p.ipnum),0)),'FM999,999,999,999') as hprice
+       , p.enddate as todate
+       , p.subject
+       , DECODE(p.status,3,'진행',4,(DECODE(p.nacper,#{aid},'낙찰','종료'))) as status
+ from actmain a , actmainde b , ipchal p
+where b.anum = a.anum
+  and p.anum = a.anum
+  and p.ipnum in(
+select ipnum from ipchalper 
+where bid = #{aid}
+group by ipnum)
+	</select>
+	<select id="iplist" resultType="aiplist" parameterType="aiplist">
+	select ippenum
+        ,DECODE(bid,#{bidt},bid,'**********') as bid
+        ,TO_CHAR(ipprice,'FM999,999,999,999') as ipprice
+        ,ipdate 
+ from ipchalper 
+where ipnum = #{ipnum}
+ order by ipdate desc
+	</select>
+	<select id="lchart" resultType="alct" parameterType="int">
+	select ipprice
+ from ipchalper 
+where ipnum = #{num}
+ order by ipdate asc
+	</select>	
+</mapper>
+
+
+

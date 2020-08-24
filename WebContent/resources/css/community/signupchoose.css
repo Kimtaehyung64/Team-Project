@@ -1,0 +1,19 @@
+.table{
+	width: 500px;
+	height: 350px;
+	border: 2px solid SeaGreen;	
+	text-align: center;
+	margin: 0 auto;
+}
+th{
+	width : 250px;
+	font-size: 30px;
+}
+.btn{
+font-size: 100%;
+font-weight: bold;
+color: black; 
+}
+.table th, .table td{
+ vertical-align: middle;
+} 

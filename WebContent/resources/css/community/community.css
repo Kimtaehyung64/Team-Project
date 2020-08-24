@@ -1,0 +1,13 @@
+.form-control{
+margin-left: 10px; margin-right: 10px;
+
+}
+.btn-primary {
+margin-left: 10px; margin-right: 10px;
+}
+#checkorder1,#checkorder2,#checkorder3{
+position: absolute; right: 400px;
+}
+#pagenum1,#pagenum2,#pagenum3{
+position: absolute; margin-left: 150px;
+} 

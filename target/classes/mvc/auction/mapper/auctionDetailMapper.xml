@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="auctionDetail">
+	<select id="detail" parameterType="int"  resultType="actdetail">
+		select
+		a.anum, p.ipnum,a.bid,fn_yongdo_name(a.byongdo) as yongdo,a.baddra as
+		addr,a.bweight,a.tweight,a.hit
+		,b.wimage,TO_CHAR(p.ideprice,'FM999,999,999,999') as
+		ideprice,p.subject,p.enddate as enddate,
+		TO_CHAR(DECODE(nvl(fn_higt_ipchalper(p.ipnum),0),0,nvl(p.ideprice,0),nvl(fn_higt_ipchalper(p.ipnum),0)),'FM999,999,999,999') as hprice
+        ,DECODE(nvl(fn_higt_ipchalper(p.ipnum),0),0,nvl(p.ideprice,0),nvl(fn_higt_ipchalper(p.ipnum),0))as htprice
+		, fn_basedata_name(3,1,p.status) as
+		status,TO_CHAR(a.indate,'YYYY.MM.DD') as indate , p.ipdanwe, b.imagea, b.imageb, b.imagec, b.managepee, b.bplan, p.text
+		from actmain a , actmainde b , ipchal p
+		where b.anum = a.anum
+		and p.anum = a.anum and a.anum = #{anum}
+	</select>
+	<insert id="bidding" parameterType="ipchal">
+		  insert into ipchalper values(IPCHALPER_SEQ.nextVal ,#{ipnum}, #{bid}, #{ipprice}, sysdate, sysdate, null)
+	</insert>
+</mapper> 
+
+
+

@@ -1,0 +1,39 @@
+h1{
+	text-align: center;
+	font-size: 70px;
+	margin-top: 100px;
+	margin-bottom: -20px;
+}
+
+.row {
+	margin-left: 0px;
+	margin-right: 0px;
+}
+.col-sm-2 {
+	font-size: 20px;
+}
+
+.form-control {
+	height: 40px;
+}
+
+.col-xs-1 {
+	padding: 5px;
+	width: 9%;
+	MARGIN-TOP: 13PX;
+}
+
+#month {
+	padding-left: 0px;
+	padding-right: 20px;
+}
+
+#day {
+	padding-left: 0px;
+	padding-right: 20px;
+	right: 15px;
+}
+
+#year {
+	padding-left: 16px;
+}

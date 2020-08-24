@@ -1,0 +1,8 @@
+@charset "UTF-8";
+
+.paging{
+	color: #64a19d;
+}
+.paging :hover {
+	cursor: pointer;
+}

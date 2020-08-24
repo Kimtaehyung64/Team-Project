@@ -1,0 +1,28 @@
+.modal {
+	display: none;
+	vertical-align: middle;
+	position: relative;
+	max-width: 700px;
+	box-sizing: border-box;
+	width: 83%;
+	background: #fff;
+	padding: 128px 26px;
+	border-radius: 8px;
+	-webkit-box-shadow: 0 0 10px #000;
+	box-shadow: 0 0 10px #000;
+	text-align: left;
+}
+
+#tal {
+	width: 500px;
+	font-size: 20px;
+}
+
+th {
+	background: #f8f8f8;
+	height: 50px;
+}
+.search{
+margin-right: -10px;
+margin-left: -10px;
+}

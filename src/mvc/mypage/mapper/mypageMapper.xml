@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mypage">
+
+	<!-- 아이디 문자열 값으로 회원정보를 불러오는 쿼리 -->
+	<select id="lessor_infor" parameterType="String" resultMap="member_infor">
+		select s.anum snum , s.aid sid , s.apwd spwd , s.ainday
+		sinday , s.achgday schgday, s.agubun sgubun,
+		m.anum mnum, m.dname
+		mname, m.dbirth mbrith , m.dgender mgender, m.dtel mtel
+		from signup s , member_detail m 
+		where s.aid = #{aid} and s.anum =
+		m.anum 
+	</select> 
+	
+	<select id="lessor_infornum" parameterType="int" resultMap="member_infor">
+		select s.anum snum , s.aid sid , s.apwd spwd , s.ainday
+		sinday , s.achgday schgday, s.agubun sgubun,
+		m.anum mnum, m.dname
+		mname, m.dbirth mbrith , m.dgender mgender, m.dtel mtel
+		from signup s , member_detail m 
+		where s.anum = #{anum} and s.anum = m.anum 
+	</select> 
+	
+	<!-- 보고 싶은 PK 값만넣으면 원하는 정보 열 이 출력 된다. -->
+	<select id="paymentDetail" parameterType="int" resultMap="payment"> 
+		select p.pnum pnum , p.psdate psdate , p.pedate pedate ,
+		p.ppay , p.pway , p.monthnum ,
+		p.pgubun ,
+		pd.pnum pdnum , pd.inment pdinment ,
+		pd.kinds pdkinds , pd.mentnum pdmentnum
+		from payment p , payment_detail pd
+		where p.pnum = #{anum} and p.pnum = pd.pnum
+	</select>
+	
+	<!--  멤버 디테일 업데이트  -->
+	<update id="infor_memberupdate" parameterType="signVO">
+	update (select s.anum snum , s.aid sid , s.apwd spwd , s.ainday sinday , s.achgday schgday, s.agubun sgubun,
+       m.anum mnum, m.dname mname, m.dbirth mbrith , m.dgender mgender, m.dtel mtel
+    from signup s , member_detail m where s.aid = #{aid} and s.anum = m.anum)
+    set
+    mname = #{dname} ,
+    mtel = #{dtel} 
+	</update>
+	
+	<update id="infor_loginupdate" parameterType="signVO">
+	update (select anum snum , aid sid , apwd spwd , ainday sinday , achgday schgday, agubun sgubun
+    from signup where aid = #{aid})
+    set
+    spwd = #{apwd} ,
+    schgday = sysdate 
+	</update>
+	
+	<select id="infor_postslist" parameterType="int" resultType="cboardvo">
+	select * from community_board where anum = #{anum} and wdel = 0
+	</select>
+	<!-- 여기서 필요한 컬럼이 뭐야 -->
+	<!--  뭘 띄우는 페이지랑 연결된거야? -->
+	<select id="mypage_product_infor" parameterType="int" resultType="myprovo">
+	<!-- select * from PRODUCT PRO , PRODUCT_SALE_INFO PSLE , PRODUCT_LOCATION PLO 
+	where PRO.anum = #{anum} and PRO.PDNUM = PSLE.PRNUM and PRO.PDNUM = PLO.PDNUM -->
+	select fnum , dname  ,  fkind , fsalekind from fsale f , member_detail m where f.anum = m.anum  and m.anum = #{anum}
+	</select>
+	
+	<select id="premiumProlong" parameterType="int" resultMap="payment">
+	  select * from payment p , payment_detail pd where p.anum = #{anum} and p.anum = pd.pnum 
+	</select>
+	
+	<update id="paymentup" parameterType="paymentVO">
+		update payment set 
+		psdate = #{psdate},
+		 pedate = #{pedate},
+		  ppay =+ #{ppay},
+		  monthnum=+ #{monthnum},
+		pway= #{pway},
+		 pgubun= #{pgubun} 
+		 where pnum= #{pnum}
+
+		
+	</update>
+	
+	<update id="payment_detailup" parameterType="payment_DetailVO">
+	update payment_detail 
+	set kinds = #{kinds},
+		mentnum = #{mentnum},  
+		inment =+ #{inment} 
+		where pnum= #{pnum}
+	</update>
+	
+	<update id="member_secession" parameterType="signVO">
+	update signup 
+	set adivision = 1 
+	where aid =#{aid} 
+	and apwd = #{apwd}
+	
+	</update>
+	
+	<select id="mypage_customer" parameterType="int" resultType="cbvo">
+	select * from customer_board where anum = #{anum}
+	</select>
+	
+	
+	<!-- 로그인 정보 회원정보 조인 resultMap -->
+	<resultMap type="signVO" id="member_infor">
+		<id property="anum" column="snum" />
+		<result property="aid" column="sid" />
+		<result property="apwd" column="spwd" />
+		<result property="ainday" column="sinday" />
+		<result property="achgday" column="schgday" />
+		<result property="agubun" column="sgubun" />
+		<association property="memberinfor" column="snum"
+			javaType="member_detailvo">
+			<id property="anum" column="mnum" />
+			<result property="dname" column="mname" />
+			<result property="dbirth" column="mbrith" />
+			<result property="dgender" column="mgender" />
+			<result property="dtel" column="mtel" />
+		</association>
+	</resultMap>
+	
+	<!-- 페이먼트 페이먼트디테일 조인 resultMap -->
+	<resultMap type="paymentvo" id="payment">
+		<id property="pnum" column="pnum" />
+		<result property="psdate" column="psdate" />
+		<result property="pedate" column="pedate" />
+		<result property="ppay" column="ppay" />
+		<result property="pway" column="pway" />
+		<result property="pgubun" column="pgubun" />
+		<result property="monthnum" column="monthnum" />
+		<association property="paydetailvo" column="pnum"
+			javaType="payment_detailvo">
+			<id property="pnum" column="pnum" />
+			<result property="inment" column="pdinment" />
+			<result property="kinds" column="pdkinds" />
+			<result property="mentnum" column="pdmentnum" />
+		</association>
+	</resultMap>
+
+
+	
+</mapper>

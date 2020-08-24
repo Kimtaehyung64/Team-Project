@@ -1,0 +1,171 @@
+@charset "UTF-8";
+
+<
+Style>#rightSide {
+	position: absolute;
+	top: 547px;
+	left: 50%;
+	margin: 0 0 0 510px;
+}
+
+#rightSide #right_zzim {
+	position: fixed;
+	top: 126px;
+	left: 50%;
+	margin-left: 600px;
+	/* border:1px solid #B0B5BD; */
+	width: 320px;
+	height: 681px;
+}
+
+#rightSide #right_zzim  div {
+	text-align: center;
+}
+
+#rightSide div.recTit {
+	line-height: 1.5em;
+	padding: 5px 5px 5px 5px;
+	color: white;
+	background-color: #F29F05;
+}
+
+#right_zzim {
+	background-color: white;
+}
+
+#right_zzim #recentCnt {
+	color: black;
+}
+
+#recentCnt {
+	background: white;
+}
+
+#rightSide #right_zzim ul {
+	min-height: 100%;
+}
+
+#rightSide #right_zzim {
+	text-align: center;
+}
+
+#rightSide #right_zzim  img {
+	border: 1px solid #ccc
+}
+
+#right_zzim .detail {
+	display: none;
+	position: absolute;
+	top: 3px;
+	right: 20px;
+	xheight: 40px;
+	xpadding: 15px 11px 0;
+	xbackground: #404a59;
+	color: white;
+	xtext-align: left;
+	white-space: nowrap;
+}
+
+.
+regist th, tr {
+	font-size: 15pt;
+}
+
+#right_zzim li:hover .detail {
+	display: block
+}
+
+#right_zzim li .btn_delete {
+	position: absolute;
+	top: 3px;
+	right: -1px;
+	width: 11px;
+	height: 11px;
+	background: url(/img/sp.png) no-repeat -193px -111px;
+	text-indent: -9000px;
+}
+
+#right_zzim  #currentPage {
+	color: white;
+	font-weight: bold
+}
+
+#right_zzim  #totalPageCount {
+	color: #CBC8D2;
+	font-weight: bold
+}
+
+.noData {
+	color: #white;
+	text-align: center;
+	margin-top: 223px;
+}
+
+}
+#paging {
+	display:;
+	position: relative;
+	line-height: 1em;
+}
+
+#paging .btn_prev {
+	position: absolute;
+	top: 526px;
+	left: 4px;
+	width: 13px;
+	height: 11px;
+	background: url(/images/ico_arrow.png) no-repeat;
+	text-indent: -9000px;
+	border: 1px solid #CCC;
+	display: inline-block;
+}
+
+#paging .btn_next {
+	position: absolute;
+	top: 526px;
+	right: 4px;
+	width: 13px;
+	height: 11px;
+	background: url(/images/ico_arrow.png) -11px 0px;
+	text-indent: -9000px;
+	border: 1px solid #CCC;
+	display: inline-block;
+}
+
+.table {
+	border-collapse: collapse;
+	border-top: 2px solid #F29F05;
+}
+
+.table th:first-child, .table td:first-child {
+	border-left: 0;
+}
+
+.table th:last-child, .table td:last-child {
+	border-right: 0;
+}
+
+.table tr td:first-child {
+	text-align: center;
+}
+
+.table caption {
+	caption-side: bottom;
+	display: none;
+}
+
+.sidebarTitle {
+	color: #FFFFFF;
+	font-size: 17px;
+}
+
+.sidebarTitle:hover {
+	color: #FFFFFF;
+}
+
+.sideMenuTable{
+	text-align: center;
+}
+.sideMenuTable td{
+	padding: 0.15rem !important;
+}

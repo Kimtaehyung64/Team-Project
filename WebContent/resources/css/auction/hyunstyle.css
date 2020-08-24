@@ -1,0 +1,70 @@
+<style>
+
+.aa{
+ margin-top: 100px;
+}
+
+ul li {
+	
+	display: inline;
+	
+}
+
+.table {
+	border: 1px solid black;
+}
+
+.detail {
+	border: 1px solid black;
+} 
+
+#main1 {
+	width: 700px;
+	height: 400px;
+	margin: 0 auto;
+}
+
+.bul {
+	margin: auto;
+	width: 100%;
+}
+
+.day {
+	
+}
+
+#bul li {
+	
+	list-style: none;
+	width: 400px;
+}
+
+.cls {
+	
+	width: 150px;
+	border: 1px solid red;
+	
+	
+}
+
+.C{
+	color: black;
+	
+	
+}
+.P{
+	color: red;
+	
+}
+#place{
+	margin: 0 auto;
+	text-align: center;
+	
+	
+}
+.container{
+	margin: 0 auto;
+	
+}
+
+</style>
